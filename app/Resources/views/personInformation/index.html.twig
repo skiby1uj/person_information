@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <br>
+    <h2>Dane użytkownika</h2><br>
+
+    <br>
+    <form method="POST" action="/save">
+        Imię: <input type="text" name="firstname">
+        <br>
+        Nazwisko: <input type="text" name="surname">
+        <br>
+        <input type="submit" value="Zapisz">
+    </form>
+{% endblock %}
