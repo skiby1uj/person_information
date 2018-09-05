@@ -7,8 +7,12 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
+        {% block menu %}
+            <button><a href="/">Formularz</a></button>
+            <button><a href="/get_person">Dane użytkowników</a></button>
+            <button><a href="http://symfonyodpodstaw.pl">Strona główna</a></button>
+        {% endblock %}
         {% block body %}{% endblock %}
-        <a href="http://symfonyodpodstaw.pl">Powrót do strony głównej</a>
         {% block javascripts %}{% endblock %}
     </body>
 </html>

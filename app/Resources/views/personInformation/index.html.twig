@@ -1,5 +1,8 @@
 {% extends 'base.html.twig' %}
 {% block body %}
+    {% if msg is defined %}
+        <script>alert('{{ msg }}')</script>
+    {% endif %}
     <br>
     <h2>Dane użytkownika</h2><br>
 

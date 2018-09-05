@@ -6,7 +6,6 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Person;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class PersonInformationController extends Controller
@@ -45,8 +44,20 @@ class PersonInformationController extends Controller
 			$responseMsg = "Zapisano nowy rekord w bazie";
 		}
 
-		return new Response($responseMsg);
-
+		return $this->render("personInformation/index.html.twig", [
+			'msg' => $responseMsg
+		]);
 	}
 
+	/**
+	 * @Route("/get_person")
+	 */
+	public function getPersonAction()
+	{
+		$persons= $this->getDoctrine()->getRepository(Person::class)->findAll();
+
+		return $this->render("personInformation/getPerson.html.twig", [
+			'persons' => $persons
+		]);
+	}
 }
