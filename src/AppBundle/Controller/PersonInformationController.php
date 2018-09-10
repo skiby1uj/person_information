@@ -4,6 +4,10 @@ namespace AppBundle\Controller;
 
 
 use AppBundle\Entity\Person;
+use AppBundle\Validation\FirstNameValidation;
+use AppBundle\Validation\SurnameValidation;
+use AppBundle\Validation\Validator\FirstNameValidator;
+use AppBundle\Validation\Validator\SurnameValidator;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -30,7 +34,13 @@ class PersonInformationController extends Controller
 		$firstName = $request->request->get('firstname');
 		$surname = $request->request->get('surname');
 
-		if (!empty($firstName) && !empty($surname))
+		$firstNameValidation = new FirstNameValidation(new FirstNameValidator());
+		$isValidFirstName = $firstNameValidation->isValid($firstName);
+
+		$surnameValidation = new SurnameValidation(new SurnameValidator());
+		$isValidSurname = $surnameValidation->isValid($surname);
+
+		if ($isValidFirstName && $isValidSurname)
 		{
 			$entityManager = $this->getDoctrine()->getManager();
 
@@ -45,7 +55,10 @@ class PersonInformationController extends Controller
 		}
 
 		return $this->render("personInformation/index.html.twig", [
-			'msg' => $responseMsg
+			'msg' 				=> $responseMsg,
+			'errorFirstName' 	=> $firstNameValidation->getErrors(),
+			'errorSurname' 		=> $surnameValidation->getErrors()
+
 		]);
 	}
 

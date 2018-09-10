@@ -10,8 +10,18 @@
     <form method="POST" action="/save">
         Imię: <input type="text" name="firstname">
         <br>
+        {% if errorFirstName is defined %}
+            {% for error in errorFirstName %}
+                <div style="color: red">{{ error }}</div>
+            {% endfor %}
+        {% endif %}
         Nazwisko: <input type="text" name="surname">
         <br>
+        {% if errorSurname is defined %}
+            {% for error in errorSurname %}
+                <div style="color: red">{{ error }}</div>
+            {% endfor %}
+        {% endif %}
         <input type="submit" value="Zapisz">
     </form>
 {% endblock %}
